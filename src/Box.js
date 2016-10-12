@@ -5,8 +5,12 @@ export default class Pane extends Component {
   render() {
     return (
       <div className="container Box">
-        Hello {this.props.userName}
+        {this.context.language.hello} {this.props.userName}
       </div>
     )
   }
 }
+
+Pane.contextTypes = {
+  language: React.PropTypes.Object
+};

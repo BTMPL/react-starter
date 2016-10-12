@@ -7,6 +7,13 @@ import Box from "./Box";
 
 export default class App extends Component {
 
+  getChildContext() {
+    return {
+      language: {
+        hello: "Hello"
+      }
+    };
+  }
   render() {
     return (
       <Pane>
@@ -18,5 +25,8 @@ export default class App extends Component {
   }
 }
 
+App.childContextTypes = {
+  language: React.PropTypes.Object
+};
 
 ReactDOM.render(<App />, document.getElementById('root'));
