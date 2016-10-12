@@ -5,7 +5,7 @@ export default class Pane extends Component {
   render() {
     return (
       <div className="container Box">
-        Witaj {this.props.userName}
+        Hello {this.props.userName}
       </div>
     )
   }
