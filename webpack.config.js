@@ -8,7 +8,7 @@ module.exports = {
   output: {
     path: __dirname + "/dist/static",
     filename: "bundle.js",
-    publicPath: "static"
+    publicPath: "static/"
   },
 
   devServer: {

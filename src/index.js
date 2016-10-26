@@ -1,70 +1,12 @@
 import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
 
-class Button extends Component {
+import { Provider } from "react-redux";
+import store from "./store/index";
 
-  render() {
-    return (
-      <button style={this.props.style}>
-        {this.props.emoticon}
-        {this.props.children}
-      </button>
-    );
-  }
-}
+import SmartApp from "./containers/SmartApp";
 
-
-class Emoticon extends Component {
-
-  render() {
-    return (
-      <span>:)</span>
-    );
-  }
-}
-
-class ChangeName extends Component {
-
-  handleClick() {
-    this.props.onClick();
-  }
-
-  render() {
-    return (
-      <button onClick={() => {
-          this.handleClick();
-        }} >Change my name!</button>
-    );
-  }
-}
-
-class App extends Component {
-
-  constructor(props) {
-    super(props);
-
-    this.state = {
-      name: "Bratosz"
-    };
-
-    this.handleClick = this.handlClick.bind(this);
-  }
-
-  handleClick() {
-      this.setState({
-        name: "Nah, another name!"
-      });
-  }
-
-  render() {
-    return (
-      <div>
-        {this.state.name}
-        <ChangeName
-          onClick={this.handleClick} />
-      </div>
-    );
-  }
-}
-
-ReactDOM.render(<App />, document.getElementById('root'));
+ReactDOM.render(
+  <Provider store={store}>
+    <SmartApp />
+  </Provider>, document.getElementById('root'));
