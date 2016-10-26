@@ -1,53 +1,87 @@
 import React from "react";
 import { render } from "react-dom";
 
-import { createStore } from "redux";
-import { Provider, connect } from "react-redux";
+import { Dispatcher } from "flux";
 
-const ACTIONS = {
-  increase: "counter/increase"
-};
+const Actions = {
+  BUTTON_CLICKED: () => ({
+    actionType: "click"
+  })
+}
 
-function counterReducer (state = {count: 0}, action) {
-  switch(action.type) {
-    case ACTIONS.increase:
-      return {count: state.count + 1}
+let ClickCounter = {
+  state: {
+    count: 0
+  },
 
-    default:
-      return state;
+  getState: function() {
+    return this.state;
+  },
+
+  increase: function() {
+    this.state.count++;
+    this.emit();
+  },
+
+  listeners:[],
+
+  emit: function() {
+    this.listeners.map((callback) => callback(this));
+  },
+
+  addChangeListener: function(callback) {
+    this.listeners.push(callback);
+  },
+
+  removeChangeListener: function(callback) {
+    this.listeners.splice(this.listeners.indexOf(callback), 1);
   }
 }
 
-const store = createStore(counterReducer);
-
+let AppDispatcher = new Dispatcher();
+AppDispatcher.register((action) => {
+  switch(action.actionType) {
+    case "click":
+      ClickCounter.increase();
+      break;
+  }
+});
 
 class Button extends React.Component {
 
   render() {
     return (
-      <button onClick={() => store.dispatch({type: ACTIONS.increase})}>{this.props.children}</button>
+      <button onClick={() => AppDispatcher.dispatch(Actions.BUTTON_CLICKED())}>{this.props.children}</button>
     )
   }
 }
 
 class App extends React.Component {
 
+  constructor(props) {
+    super(props);
+    this.state = {
+      count: 0
+    }
+  }
+
+  componentDidMount() {
+    this.callback = ClickCounter.addChangeListener((store) => {
+      this.setState(store.getState());
+    });
+  }
+
+  componentWillUnmount() {
+    ClickCounter.removeChangeListener(this.callback);
+  }
+
   render() {
     return (
       <div>
-        <Button>This button</Button> was clicked { this.props.count } times!
+        <Button>This button</Button> was clicked { this.state.count } times!
       </div>
     );
   }
 };
 
-const ConnectedApp = connect(() => ({
-  count: store.getState().count
-}))(App);
-
-
-render(
-  <Provider store={store}>
-    <ConnectedApp />
-  </Provider>,
-document.getElementById("root"));
+render(<App />, document.getElementById("root"));
