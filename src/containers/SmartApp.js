@@ -6,18 +6,19 @@ import React from "react";
 import { connect } from "react-redux";
 
 import App from "../components/App";
-import { incrementAction } from "../actions/clicktracker.js";
+import { getNewItem } from "../actions/item.js";
+
 
 function mapStatesToProps(store) {
   return {
-    timesButtonPressed: store.timesButtonPressed
+    items: store.items
   }
 }
 
 function mapDispatchToProps(dispatch) {
   return {
     onButtonClick: function() {
-      dispatch(incrementAction())
+      dispatch(getNewItem())
     }
   }
 }

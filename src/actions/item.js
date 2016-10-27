@@ -5,16 +5,20 @@
  */
 
 const actions = {
-  increment: "clicktracker/increment"
+  getNewItem: "items/getNew"
 };
 
 /**
  * this is an action creator; it will take some data, process it, and
  * return an action - all actions passed to dispatch() must be plain
  * objects */
-function incrementAction() {
+function getNewItem() {
   return {
-    type: actions.increment
+    type: actions.getNewItem,
+    payload: {
+      name: "A random item",
+      value: Math.ceil(Math.random() * 1000)
+    }
   }
 };
 
@@ -24,5 +28,5 @@ function incrementAction() {
  */
 export {
   actions,
-  incrementAction
+  getNewItem
 }

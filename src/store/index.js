@@ -6,6 +6,6 @@
 
 import { createStore } from "redux";
 
-import clickTrackerReducer from "../reducers/clicktracker";
+import itemsReducer from "../reducers/items";
 
-export default createStore(clickTrackerReducer);
+export default createStore(itemsReducer);
