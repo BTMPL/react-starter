@@ -41,8 +41,8 @@ class App extends React.Component {
   }
 };
 
-const ConnectedApp = connect(() => ({
-  count: store.getState().count
+const ConnectedApp = connect((store) => ({
+  count: store.count
 }))(App);
 
 
