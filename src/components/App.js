@@ -12,7 +12,7 @@ class App extends React.Component {
         <p>Currently loaded items:</p>
         {this.props.items.map((item, index) => {
           return (
-            <div key={index}>Item #{index} "{item.name}" - value: {item.value}</div>
+            <div className="item" key={index}>Item #{index} "{item.name}" - value: {item.value}</div>
           )
         })}
       </div>
