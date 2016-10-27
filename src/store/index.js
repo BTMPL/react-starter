@@ -4,8 +4,9 @@
  * to all of the reducers that were registerd with createStore()
  */
 
-import { createStore } from "redux";
+import { createStore, applyMiddleware } from "redux";
+import thunk from "redux-thunk";
 
 import itemsReducer from "../reducers/items";
 
-export default createStore(itemsReducer);
+export default createStore(itemsReducer, applyMiddleware(thunk));
